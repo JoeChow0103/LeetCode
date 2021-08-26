@@ -2,20 +2,12 @@
 请大家按照目录查找，并点击进入文件
 
 ## OOD
-
-[Amazon](OOD/src/Amazon.java)
-[AmazonDeliver](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
-[Amazon](OOD/src/Amazon.java)
+|||||
+|---|---|---|---|
+|[Amazon](OOD/src/Amazon.java)|[AmazonDeliverCenter](OOD/src/Amazon.java)|[AmazonLocker](OOD/src/Amazon.java)|[DesignCards](OOD/src/Amazon.java)|
+|[Elevator](OOD/src/Amazon.java)|[FileFilterSystem](OOD/src/Amazon.java)|[InMemoryFileSystem](OOD/src/Amazon.java)|[LibraryManagement](OOD/src/Amazon.java)|
+|[MyTicTacToe](OOD/src/Amazon.java)|[ParkingLot](OOD/src/Amazon.java)|[RateLimiter](OOD/src/Amazon.java)|[RestaurantTableDistribution](OOD/src/Amazon.java)|
+|[StockX](OOD/src/Amazon.java)|[User](OOD/src/Amazon.java)|[VendingMachine](OOD/src/Amazon.java)|
 
 ## 1-200
 |1-50|51-100|101-150|151-200|
