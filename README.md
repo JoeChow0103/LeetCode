@@ -1,5 +1,22 @@
 # LeetCode
 请大家按照目录查找，并点击进入文件
+
+## OOD
+
+[Amazon](OOD/src/Amazon.java)
+[AmazonDeliver](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+[Amazon](OOD/src/Amazon.java)
+
 ## 1-200
 |1-50|51-100|101-150|151-200|
 |---|---|---|---|
