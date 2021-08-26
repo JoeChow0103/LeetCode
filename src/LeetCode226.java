@@ -1,0 +1,11 @@
+public class LeetCode226 {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+
+        TreeNode left = root.left, right = root.right;
+
+        root.left = invertTree(right);
+        root.right = invertTree(left);
+        return root;
+    }
+}
