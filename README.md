@@ -4,10 +4,10 @@
 ## OOD
 |||||
 |---|---|---|---|
-|[Amazon](OOD/src/Amazon.java)|[AmazonDeliverCenter](OOD/src/Amazon.java)|[AmazonLocker](OOD/src/Amazon.java)|[DesignCards](OOD/src/Amazon.java)|
-|[Elevator](OOD/src/Amazon.java)|[FileFilterSystem](OOD/src/Amazon.java)|[InMemoryFileSystem](OOD/src/Amazon.java)|[LibraryManagement](OOD/src/Amazon.java)|
-|[MyTicTacToe](OOD/src/Amazon.java)|[ParkingLot](OOD/src/Amazon.java)|[RateLimiter](OOD/src/Amazon.java)|[RestaurantTableDistribution](OOD/src/Amazon.java)|
-|[StockX](OOD/src/Amazon.java)|[User](OOD/src/Amazon.java)|[VendingMachine](OOD/src/Amazon.java)|
+|[Amazon](OOD/src/Amazon.java)|[AmazonDeliverCenter](OOD/src/AmazonDeliverCenter.java)|[AmazonLocker](OOD/src/AmazonLocker.java)|[DesignCards](OOD/src/DesignCards.java)|
+|[Elevator](OOD/src/Elevator.java)|[FileFilterSystem](OOD/src/FileFilterSystem.java)|[InMemoryFileSystem](OOD/src/InMemoryFileSystem.java)|[LibraryManagement](OOD/src/LibraryManagement.java)|
+|[MyTicTacToe](OOD/src/MyTicTacToe.java)|[ParkingLot](OOD/src/ParkingLot.java)|[RateLimiter](OOD/src/RateLimiter.java)|[RestaurantTableDistribution](OOD/src/RestaurantTableDistribution.java)|
+|[StockX](OOD/src/StockX.java)|[User](OOD/src/User.java)|[VendingMachine](OOD/src/VendingMachine.java)|
 
 ## 1-200
 |1-50|51-100|101-150|151-200|
