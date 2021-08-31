@@ -13,7 +13,8 @@ public class LeetCode239 {
     step3: the leftmost elment is the max value of current sliding window.
     n * 1
     Time: O(n), amortized, every element in and out O(1), then O(n)
-
+    1 3 -1 -3 5 3 6 7
+    -3 -1 3
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
         int[] res = new int[nums.length - k + 1];
