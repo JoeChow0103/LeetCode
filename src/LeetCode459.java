@@ -8,28 +8,25 @@ public class LeetCode459 {
     //Note:- we need to check the condition of the last index of LPS array. If that is 0 then it means that there is
     //no pattern formed in the string.
      */
-    public boolean repeatedSubstringPattern(String s) {
-        int[] lps = new int[s.length()]; //longest proper prefix
-        for (int i = 1, j = 0; i < s.length();) {
-            if (s.charAt(i) == s.charAt(j)) {
-                lps[i] = j + 1;
-                i++;
-                j++;
-            } else if (j != 0 && s.charAt(i) != s.charAt(j)) {
-                j = lps[j - 1];
-            } else {
-                i++;
+    public static boolean repeatedSubstringPattern(String s) {
+        char[] arr = s.toCharArray();
+        int m = arr.length;
+        int[] next = new int[m];
+        for (int i = 1, j = 0; i < m; i++) {
+            while (j > 0 && arr[i] != arr[j]) {
+                j = next[j];
             }
+            if (arr[i] == arr[j]) j++;
+            next[i] = j;
         }
-        System.out.println(lps);
-        if (lps[lps.length-1] == 0) return false;
-        int patternLength = s.length() - lps[lps.length - 1];
-        if (s.length() % patternLength == 0) return true;
+        for (int i : next) System.out.println(i);
+        if (next[m - 1] == 0) return false;
+        int patternLen = s.length() - next[m - 1];
+        if (m % patternLen == 0) return true;
         return false;
     }
-//    public boolean repeatedSubstringPattern(String s) {
-//        // so smart
-//        int idx = (s + s).indexOf(s, 1);
-//        return  idx < s.length();
-//    }
+
+    public static void main(String[] args) {
+        repeatedSubstringPattern("ababba");
+    }
 }
