@@ -1,6 +1,324 @@
 import java.util.*;
 
+class Solution14 {
+    public TreeNode upsideDownBinaryTree(TreeNode root) {
+        if (root == null) return null;
+        if (root.left == null) return root;
 
+        TreeNode newRoot = upsideDownBinaryTree(root.left);
+        root.left.left = root.right;
+        root.left.right = root;
+        root.left = null;
+        root.right = null;
+        return newRoot;
+    }
+}
+
+class Solution13 {
+    public static List<Integer> personKnowSecret(int[][] list, int person) {
+        List<int[]> sortList = Arrays.asList(list);
+        Collections.sort(sortList, (l1, l2) -> l1[2] - l2[2]);
+        UnionFind uf = new UnionFind(list.length * 2);
+
+        int curTime = sortList.get(0)[2];
+
+        for (int[] l : sortList) {
+            int x = l[0];
+            int y = l[1];
+            if (curTime != l[2]) {
+                curTime = l[2];
+                uf.un_union(person);
+            }
+            uf.union(x, y);
+        }
+
+        return uf.getRes(person);
+    }
+
+    static class UnionFind {
+        int[] parent;
+        int[] rank;
+
+        UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        public int find(int x){
+            int cur = x;
+            while (cur != parent[cur]) {
+                parent[cur] = parent[parent[cur]];
+                cur = parent[cur];
+            }
+            parent[x] = cur;
+            return cur;
+        }
+
+        public void union(int x, int y) {
+            int rootX = parent[x];
+            int rootY = parent[y];
+            if (rootX == rootY) return;
+            if (rank[rootX] < rank[rootY]) {
+                union(y, x);
+            } else {
+                parent[rootY] = rootX;
+                rank[rootX] += rank[rootY];
+            }
+        }
+
+        public void un_union(int x) {
+            for (int i = 0; i < parent.length; i++) {
+                if (find(i) != x) {
+                    parent[i] = i;
+                    rank[i] = 1;
+                }
+            }
+        }
+
+        public List<Integer> getRes(int x) {
+            List<Integer> res = new ArrayList<>();
+            for (int i = 0; i < parent.length; i++) {
+                if (find(i) == x) {
+                    res.add(i);
+                }
+            }
+            return res;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] list = {{1, 2, 100},{1, 4, 200},{2, 4, 200},{5, 6, 200},{7, 8, 400}};
+        List<Integer> people = personKnowSecret(list, 4);
+        for(int p : people) System.out.println(p);
+    }
+}
+
+class Solution12 {
+    /*
+    1. create a circle of radius R1 centered at R2
+    2. create a donut by rotating about the y axis
+    3. spin the donut around the x and z axes
+    4. project donut onto 2D screen
+    5. determine illumination by calculating surface normal (given a light source)
+     */
+    public static void main(String[] args) {
+        int k;
+        double A = 0, B = 0, i, j;
+        double[] z = new double[1760];
+        char[] b = new char[1760];
+        System.out.print("\u001b[2J");
+        for (; ; ) {
+            Arrays.fill(b, 0, 1760, ' ');
+            Arrays.fill(z, 0, 1760, 0);
+            for (j = 0; 6.28 > j; j += 0.07)
+                for (i = 0; 6.28 > i; i += 0.02) {
+                    double c = Math.sin(i),
+                            d = Math.cos(j),
+                            e = Math.sin(A),
+                            f = Math.sin(j),
+                            g = Math.cos(A),
+                            h = d + 2,
+                            D = 1 / (c * h * e + f * g + 5),
+                            l = Math.cos(i),
+                            m = Math.cos(B),
+                            n = Math.sin(B),
+                            t = c * h * g - f * e;
+                    int x = (int) (40 + 30 * D * (l * h * m - t * n)),
+                            y = (int) (12 + 15 * D * (l * h * n + t * m)),
+                            o = x + 80 * y,
+                            N = (int) (8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n));
+                    if (22 > y && y > 0 && x > 0 && 80 > x && D > z[o]) {
+                        z[o] = D;
+                        b[o] = new char[]{'.', ',', '-', '~', ':', ';', '=', '!', '*', '#', '$', '@'}[Math.max(N, 0)];
+                    }
+                }
+            System.out.print("\u001b[H");
+            for (k = 0; 1761 > k; k++)
+                System.out.print(k % 80 > 0 ? b[k] : 10);
+            A += 0.04;
+            B += 0.02;
+        }
+    }
+}
+
+class Solution11 {
+    public int numSquare(int[][] points) {
+        HashSet<int[]> set = new HashSet<>();
+        int count = 0;
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                int[] p1 = points[i];
+                int[] p2 = points[j];
+                set.add(p1);
+                set.add(p2);
+                int[][] possiblePairs = possiblePairs(p1, p2);
+                int[] p3 = possiblePairs[0];
+                int[] p4 = possiblePairs[1];
+                if (set.contains(p3) && set.contains(p4)) {
+                    count++;
+                }
+            }
+        }
+        return count / 2;
+    }
+    public int[][] possiblePairs(int[] p1, int[] p2) {//diagonal
+        int x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
+        int x3 = (x1 + x2 + y2 - y1) / 2;
+        int y3 = (y1 + y2 + x1 - x2) / 2;
+        int x4 = (x1 + x2 - y2 + y1) / 2;
+        int y4 = (y1 + y2 - x1 + x2) / 2;
+        return new int[][] {{x3, y3}, {x4, y4}};
+    }
+}
+
+class Solution10 {
+    public static int binaryProduct(int a, int b) {
+        int b1 = a, b2 = b;
+        int digit,factor = 1;
+        int multiply = 0;
+        while (b2 != 0) {
+            digit = (b2 % 10);
+            if (digit == 1) {
+                b1 = b1 * factor;
+                multiply = cal(b1, multiply);
+            } else {
+                b1 = b1 * factor;
+            }
+            b2 = b2 / 10;
+            factor = 10;
+        }
+        return multiply;
+    }
+
+    public static int cal(int b1, int b2) {
+        int i = 0;
+        int remainder = 0;
+        int result = 0;
+        int sum[] = new int[50];
+        while (b1 != 0 || b2 != 0) {
+            sum[i++] = (b1 % 10 + b2 % 10 + remainder) % 2;
+            remainder = (b1 % 10 + b2 % 10 + remainder) / 2;
+            b1 = b1 / 10;
+            b2 = b2 / 10;
+        }
+
+        if (remainder != 0) {
+            sum[i++] = remainder;
+        }
+
+        while (--i >= 0) {
+            result = result * 10 + sum[i];
+        }
+        return result;
+    }
+
+    public static int toBinary(int num) {
+        int binary = 0;
+        int bi[] = new int[20];
+        int i = 0;
+        while (num > 0) {
+            bi[i++] = num % 2;
+            num = num / 2;
+        }
+        while ( --i >= 0) {
+            binary = binary * 10 + bi[i];
+        }
+        return binary;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(binaryProduct(11100, 10101));
+    }
+}
+
+class Solution9 {
+    static int splitIntoTwo(List<Integer> arr) {
+        int total = 0;
+        for (int num : arr) {
+            total += num;
+        }
+        int sum1 = 0, sum2 = 0;
+        int count = 0;
+        for (int i = 0; i < arr.size() - 1; i++) {
+            sum1 += arr.get(i);
+            sum2 = total - sum1;
+            if (sum1 > sum2) count++;
+            System.out.println("sum1 "+sum1);
+            System.out.println("sum2 "+sum2);
+            System.out.println("count " + count);
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> arr = Arrays.asList(5, -3, -2, 10, 20, -30);
+        /*
+        left: 5
+        right: -5
+         */
+        System.out.println(splitIntoTwo(arr));
+    }
+}
+
+class Solution8 { // don't change anything
+    public static List<String> process(String s) {
+        String[] arr = s.split("\n");
+        List<String> res = new ArrayList<>();
+        String num;
+
+        for (String str : arr) {
+            if (str.charAt(0) == '#') {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 1; i < str.length(); i++) {
+                    Character c = str.charAt(i);
+                    if (c == ' ') break;
+                    if (Character.isDigit(c)) {
+                        sb.append(c);
+                    }
+                }
+                num = sb.toString();
+                res.add("[" + str + "]" + "(src/LeetCode" + num + ".java)");
+            }
+        }
+        return res;
+    }
+
+    public static List<String> merge(List<String> l1, List<String> l2, List<String> l3, List<String> l4) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("|");
+            sb.append(l1.get(i));
+            sb.append("|");
+            sb.append(l2.get(i));
+            sb.append("|");
+            sb.append(l3.get(i));
+            sb.append("|");
+            sb.append(l4.get(i));
+            sb.append("|");
+            res.add(sb.toString());
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String s1 = "";
+        String s2 = "";
+        String s3 = "";
+        String s4 = "";
+        List<String> l1 = process(s1);
+        List<String> l2 = process(s2);
+        List<String> l3 = process(s3);
+        List<String> l4 = process(s4);
+        List<String> res = merge(l1, l2, l3, l4);
+        for (String str : res) System.out.println(str);
+    }
+}
 
 class Solution7 {
     int[] clockDiditCount(int[] startTime, int[] finishTime) {
@@ -257,8 +575,6 @@ class Solution1 {
         System.out.println(solution.generator());
     }
 }
-
-
 
 class Solution {
     public List<String> sortBoxes(List<String> boxList) {
