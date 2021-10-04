@@ -7,7 +7,7 @@ public class LeetCode126 {
     dfs record the path
     Time: O(26^word.length * wordList.size() + V+E); Space(V+E)
      */
-    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+    public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> res = new ArrayList<List<String>>();
 
         HashSet<String> wordSet = new HashSet<>();
@@ -62,7 +62,7 @@ public class LeetCode126 {
         return res;
     }
 
-    private void search(List<List<String>> res, List<String> one, String cur,
+    private static void search(List<List<String>> res, List<String> one, String cur,
                         String end, HashMap<String, List<String>> graph) {
         if (cur.equals(end)) {
             List<String> copy = new LinkedList<String>(one);
@@ -76,5 +76,13 @@ public class LeetCode126 {
             search(res, one, n, end, graph);
             one.remove(0);
         }
+    }
+
+    public static void main(String[] args) {
+        String b = "hit";
+        String e = "cog";
+        String[] words = {"hot","dot","dog","lot","log","cog"};
+        List<String> wordList = Arrays.asList(words);
+        findLadders(b, e, wordList);
     }
 }

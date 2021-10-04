@@ -12,6 +12,7 @@ public class LeetCode8 {
         boolean seenNum = false;
 
         int index = 0;
+        // remove the extra space
         while(index < s.length() && s.charAt(index) == ' '){
             index++;
         }

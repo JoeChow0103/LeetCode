@@ -47,7 +47,7 @@ public class KMP {
     }
 
     public static void main(String[] args) {
-        int[] res = build("leetcodeleet");
+        int[] res = build("abbaaba");
         for (int n : res ) System.out.println(n);
     }
 }
