@@ -17,6 +17,10 @@ public class LeetCode239 {
     -3 -1 3
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
+        /*
+        1,3,-1,-3,5,3,6,7
+        dq: 1 | 3 | -1 3 | -1 3 | -1(middle) | 5 | 3 5 | 6 5 | 6(middle) | 7 6
+        */
         int[] res = new int[nums.length - k + 1];
         Deque<Integer> dq = new LinkedList<>();
         for(int i = 0; i < nums.length; i++){

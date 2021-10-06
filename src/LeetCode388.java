@@ -13,7 +13,7 @@ public class LeetCode388 {
         int len = input.length();
         int i = 0;
         int max = 0;
-        Stack<int[]> stack = new Stack<>();
+        Stack<int[]> stack = new Stack<>(); // store (fileLen, level)
         while (i < len) {
             if (i < len && input.charAt(i) == '\n') {
                 i++;
@@ -34,7 +34,7 @@ public class LeetCode388 {
                 i++;
             }
 
-            while (!stack.isEmpty() && stack.peek()[1] >= level) {
+            while (!stack.isEmpty() && stack.peek()[1] >= level) { // relocate to the prev parent
                 stack.pop();
 
             }

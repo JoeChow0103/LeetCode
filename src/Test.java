@@ -1,16 +1,43 @@
 import java.util.*;
 
 class Solution14 {
-    public TreeNode upsideDownBinaryTree(TreeNode root) {
-        if (root == null) return null;
-        if (root.left == null) return root;
+    public static int maxAreaOfIsland(int[][] grid) {
+        // c.c.
+        if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0) {
+            return 0;
+        }
 
-        TreeNode newRoot = upsideDownBinaryTree(root.left);
-        root.left.left = root.right;
-        root.left.right = root;
-        root.left = null;
-        root.right = null;
-        return newRoot;
+        int res = 0;
+        int row = grid.length, col = grid[0].length;
+        boolean[][] visited = new boolean[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if(!visited[i][j]) res = Math.max(res, dfs(grid, i, j, visited, grid[i][j]));
+            }
+        }
+
+        return res;
+    }
+
+    private static int dfs(int[][] grid, int i, int j, boolean[][] visited, int val) {
+        int row = grid.length, col = grid[0].length;
+        // base case
+        if (i < 0 || i >= row || j < 0 || j >= col || grid[i][j] == 0 || visited[i][j] || grid[i][j] != val) {
+            return 0;
+        }
+
+        visited[i][j] = true;
+        return dfs(grid, i + 1, j, visited, val) +
+                dfs(grid, i - 1, j, visited, val) +
+                dfs(grid, i, j + 1, visited, val) +
+                dfs(grid, i, j - 1, visited, val) + 1;
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {{1, 1, 1, 1, 4},
+                          {5, 1, 1, 1, 1},
+                          {3, 4, 2, 1, 3}};
+        System.out.println(maxAreaOfIsland(matrix));
     }
 }
 

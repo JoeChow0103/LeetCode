@@ -10,11 +10,11 @@ public class LeetCode523 {
         }
 
         Map<Integer, Integer> map = new HashMap<>();
-        map.put(0, -1);
+        map.put(0, -1); // when sum == k, but no other match
         int sum = 0;
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
-            int target = k == 0 ? sum : sum % k;
+            int target = k == 0 ? sum : sum % k; // k == 0 or not
             if (!map.containsKey(target)) {
                 map.put(target, i);
             }

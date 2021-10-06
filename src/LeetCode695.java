@@ -1,47 +1,36 @@
 import java.util.*;
 
 public class LeetCode695 {
-    /**
-     * similar to 694
-     */
     public int maxAreaOfIsland(int[][] grid) {
-        int res = 0; // think about the [[0]], the result should be 0
         // c.c.
         if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0) {
-            return res;
+            return 0;
         }
 
+        int res = 0;
         int row = grid.length, col = grid[0].length;
+        boolean[][] visited = new boolean[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                if (grid[i][j] != 0) {
-                    StringBuilder sb = new StringBuilder();
-                    dfs(grid, i, j, sb, 's');
-                    int size = sb.length(); // remember the starter should be counted
-                    if (res < size) {
-                        res = size;
-                    }
-                }
+                if(!visited[i][j]) res = Math.max(res, dfs(grid, i, j, visited));
             }
         }
 
         return res;
     }
 
-    private void dfs(int[][] grid, int i, int j, StringBuilder sb, char dir) {
+    private int dfs(int[][] grid, int i, int j, boolean[][] visited) {
         int row = grid.length, col = grid[0].length;
         // base case
-        if (i < 0 || i >= row || j < 0 || j >= col || grid[i][j] == 0) {
-            return;
+        if (i < 0 || i >= row || j < 0 || j >= col || grid[i][j] == 0 || visited[i][j]) {
+            return 0;
         }
 
-        // general case
-        grid[i][j] = 0;
-        sb.append(dir);
-        dfs(grid, i, j + 1, sb, 'r');
-        dfs(grid, i + 1, j, sb, 'd');
-        dfs(grid, i, j - 1, sb, 'l');
-        dfs(grid, i - 1, j, sb, 'u');
+        visited[i][j] = true;
+        return dfs(grid, i + 1, j, visited) +
+                dfs(grid, i - 1, j, visited) +
+                dfs(grid, i, j + 1, visited) +
+                dfs(grid, i, j - 1, visited) + 1;
     }
 
     public static void main(String[] args) {
